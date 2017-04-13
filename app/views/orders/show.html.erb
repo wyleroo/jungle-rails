@@ -2,17 +2,21 @@
 
   <header class="page-header">
     <h1>Order #<%= @order.id %></h1>
-    <% if current_user %>
-      Signed in as <%= current_user.email %>
-    <% end %>
   </header>
 
-  <%= @order.line_items.each do |item| %>
+  <% @order.line_items.each do |item| %>
     <%= render 'item', product_id: item.product_id %>
+    <h5>Line total: <%= humanized_money_with_symbol item.total_price %> </h5>
   <% end %>
 
+ <p>Comment here.</p>
+
   <div class="order-summary jumbotron">
-    <h4>Thank you for giving us $<%= (@order.total_cents)/100 %>!!</h4>
+    <h4>Thank you for giving us <%= humanized_money_with_symbol @order.total %>!!</h4>
+    <% if current_user %>
+      <h4>An email been sent to <%= current_user.email %></h4>
+    <% end %>
+
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
