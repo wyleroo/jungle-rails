@@ -4,6 +4,14 @@
     <h1>Order #<%= @order.id %></h1>
   </header>
 
+  <% if current_user %>
+    Signed in as <%= current_user.email %>
+  <% end %>
+
+  <%= @order.line_items.each do |item| %>
+    <%= render 'item', product_id: item.product_id %>
+  <% end %>
+
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
   </div>
