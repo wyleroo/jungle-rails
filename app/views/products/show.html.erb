@@ -26,16 +26,25 @@
       </div>
 
       <div>
-        <h3>Re-views</h3>
-        <% if @reviews != 0 %>
+        <h3>Reviews</h3>
+
+        <h4>Add a review why not?</h4>
+
+        <%= form_for :review, url: "#{@product.id}/reviews" do |f| %>
+          Name:<%= f.text_field :name %><br/>
+          Product rating<%= f.select :rating, [0,1,2,3,4,5] %><br/>
+          Description<%= f.text_field :description %>:
+
+          <%= f.submit 'create' %>
+        <% end %>
+
+        <% if @reviews.size != 0 %>
           <% @reviews.each do |element| %>
             <%= render 'review', description: element.description, rating: element.rating %>
           <% end %>
         <% end %>
+
       </div>
-
     </div>
-
   </article>
-
 </section>

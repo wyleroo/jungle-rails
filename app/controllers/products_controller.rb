@@ -9,4 +9,8 @@ class ProductsController < ApplicationController
     @reviews = Review.where(product_id: params[:id])
   end
 
+  def new
+    @review = Review.new
+  end
+
 end
