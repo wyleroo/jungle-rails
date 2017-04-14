@@ -26,8 +26,11 @@
       </div>
 
       <div>
-        <% @reviews.each do |element| %>
-          <%= render 'review', description: element.description, rating: element.rating %>
+        <h3>Re-views</h3>
+        <% if @reviews != 0 %>
+          <% @reviews.each do |element| %>
+            <%= render 'review', description: element.description, rating: element.rating %>
+          <% end %>
         <% end %>
       </div>
 

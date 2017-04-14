@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
 
   resources :products, only: [:index, :show]
+    resources :reviews, only: [:create]
   resources :categories, only: [:show]
 
   resource :cart, only: [:show] do
