@@ -132,10 +132,14 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+## USERS
+User.destroy_all
+
+user1 = User.find_or_create_by! name: 'Wyatt', email: 'thewyatt@gmail.com', password_digest: '$2a$10$7DcDTTY7mj3lJBW17SGah.0RtNBJJYaGEROeHZW0rYGZz69UQjG1q'
+
 ## REVIEWS
-# burn the village
 Review.destroy_all
-# seed it up
+
 rev1 = Review.find_or_create_by!({
   product_id: 6,
   user_id: 1,
