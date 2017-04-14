@@ -9,6 +9,8 @@
 !/log/.keep
 /tmp
 
+
+
 # Ignore carrier wave uploads for development
 /public/uploads
 
