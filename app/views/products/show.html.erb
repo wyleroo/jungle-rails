@@ -25,30 +25,35 @@
         </dl>
       </div>
 
-      <div class="reviews">
-        <h4 class="reviews-title">Reviews</h4>
-
-        <% if session[:user_id] %>
-          <h4 class="review-header">Add a review why not?</h4>
-
-          <%= form_for :review, url: "#{@product.id}/reviews" do |f| %>
-            Product rating<%= f.select :rating, [0,1,2,3,4,5] %><br/>
-            Description<%= f.text_field :description %>:
-            <%= f.submit 'create' %>
-
-          <% end %>
-        <% end %>
-
-        <% if @reviews.size != 0 %>
-          <% @reviews.each.reverse do |element| %>
-            <% @user_name = Users.where( id: review.user_id) %>
-            <%= render 'review', description: element.description, rating: element.rating %>
-          <% end %>
-        <% else %>
-          <p class="reviews-nil">No reviews yet.</p>
-        <% end %>
-
-      </div>
     </div>
   </article>
+
+  <div class="reviews">
+    <hr>
+    <h4 class="reviews-title">Reviews</h4>
+
+    <% if session[:user_id] %>
+      <h5 class="review-header">Add a review why not?</h5>
+
+      <div class="review-form">
+        <%= form_for :review, class: "review-submit", url: "#{@product.id}/reviews" do |f| %>
+          Product rating <%= f.select :rating, [0,1,2,3,4,5] %><br/>
+          Description <%= f.text_field :description %>
+          <%= f.submit 'create' %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <hr>
+
+    <% if @reviews.size != 0 %>
+      <% @reviews.reverse_each do |element| %>
+        <% @user_name = User.where( id: element.user_id) %>
+        <%= render 'review', description: element.description, rating: element.rating %>
+      <% end %>
+    <% else %>
+      <p class="reviews-nil">No reviews yet.</p>
+    <% end %>
+
+  </div>
 </section>
