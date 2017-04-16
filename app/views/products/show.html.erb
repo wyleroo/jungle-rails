@@ -25,23 +25,27 @@
         </dl>
       </div>
 
-      <div>
-        <h3>Reviews</h3>
+      <div class="reviews">
+        <h4 class="reviews-title">Reviews</h4>
 
-        <h4>Add a review why not?</h4>
+        <% if session[:user_id] %>
+          <h4 class="review-header">Add a review why not?</h4>
 
-        <%= form_for :review, url: "#{@product.id}/reviews" do |f| %>
-          Name:<%= f.text_field :name %><br/>
-          Product rating<%= f.select :rating, [0,1,2,3,4,5] %><br/>
-          Description<%= f.text_field :description %>:
+          <%= form_for :review, url: "#{@product.id}/reviews" do |f| %>
+            Product rating<%= f.select :rating, [0,1,2,3,4,5] %><br/>
+            Description<%= f.text_field :description %>:
+            <%= f.submit 'create' %>
 
-          <%= f.submit 'create' %>
+          <% end %>
         <% end %>
 
         <% if @reviews.size != 0 %>
-          <% @reviews.each do |element| %>
+          <% @reviews.each.reverse do |element| %>
+            <% @user_name = Users.where( id: review.user_id) %>
             <%= render 'review', description: element.description, rating: element.rating %>
           <% end %>
+        <% else %>
+          <p class="reviews-nil">No reviews yet.</p>
         <% end %>
 
       </div>
