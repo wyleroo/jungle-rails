@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "ProductDetails", type: :feature do
+RSpec.feature "ProductDetails", type: :feature, js: true do
 
   # SETUP
   before :each do
@@ -20,11 +20,14 @@ RSpec.feature "ProductDetails", type: :feature do
   scenario "They see all products" do
     # ACT
     visit root_path
-    click
-    # DEBUG / VERIFY
+
     save_screenshot
 
-    expect(page).to have_css 'article.product', count: 10
-  end
+    find('article.product:first-of-type').click
 
+    puts page.html
+    # click_button 'Details'
+    # DEBUG / VERIFY
+    expect(page).to have_css '.description'
+  end
 end
