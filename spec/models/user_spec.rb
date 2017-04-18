@@ -38,10 +38,34 @@ RSpec.describe User, type: :model do
       expect(@user).to_not be_valid
     end
 
+
+
     it 'validates password confirmation' do
-      @user = User.new(name: 'Brendan Walker', email: 'b@gmail.com', password:'squanchy', password_confirmation: 'squanch')
+      @user = User.new(name: 'Brendan Walker',
+        email: 'b@gmail.com',
+        password:'squanchy',
+        password_confirmation: 'squanch')
       expect(@user.password).not_to eql(@user.password_confirmation)
       expect(@user).to_not be_valid
+    end
+  end
+
+  describe '.authenticate_with_credentials' do
+    it 'validates email using authenticate_with_credentials' do
+      @user = User.new(name: 'Brendan Walker',
+        email: 'b@gmail.com',
+        password: 'squanchy',
+        password_confirmation: nil)
+      expect(@user.authenticate_with_credentials(@user.email, 'squanch')).to be_falsey
+    end
+
+    it 'validates email regardless of whitespace' do
+      @user = User.new(name: 'Brendan Walker',
+        email: '   b@gmail.com     ',
+        password: 'squanchy',
+        password_confirmation: 'squanchy'
+        )
+      expect(@user).to be_valid
     end
   end
 end

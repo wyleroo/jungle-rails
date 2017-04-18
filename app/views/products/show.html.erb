@@ -48,8 +48,10 @@
 
     <% if @reviews.size != 0 %>
       <% @reviews.reverse_each do |element| %>
-        <% @user_name = User.where( id: element.user_id) %>
-        <%= render 'review', description: element.description, rating: element.rating %>
+        <% user = @users.detect{|e| e.id == element.user_id} %>
+        <% if user %>
+          <%= render 'review', user: user.name, description: element.description, rating: element.rating %>
+        <% end %>
       <% end %>
     <% else %>
       <p class="reviews-nil">No reviews yet.</p>
